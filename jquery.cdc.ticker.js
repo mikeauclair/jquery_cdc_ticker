@@ -42,7 +42,8 @@ SCRATCH PAD
 			var elem_counter = 0;
 			var outer_elem = $(this.parent_elem);
 			outer_elem.wrap('<div>');
-			outer_elem.before('<div>');
+			outer_elem.parent().addClass('cdcTickerWrapper');
+			outer_elem.after('<div>');
 			container = outer_elem.siblings('div');
 			$(this.parent_elem).children('li').each(function() {
 				elem_counter += 1;

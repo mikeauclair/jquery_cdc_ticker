@@ -1,3 +1,17 @@
 div.cdcTickerControls {
-	float:right;
+	float:left;
+}
+
+div.cdcTickerWrapper ul {
+	float:left;
+	width: 550px;
+}
+
+div.cdcTickerControls h3, div.cdcTickerControls h4 {
+	height: 33%;
+}
+
+div.cdcTickerWrapper {
+	height: 400px;
+	width: 50%;
 }
