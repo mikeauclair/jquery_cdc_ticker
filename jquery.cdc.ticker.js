@@ -40,40 +40,45 @@ SCRATCH PAD
 		init: function() {
 			var self = this;
 			var elem_counter = 0;
-			console.log(self);
+			var outer_elem = $(this.parent_elem);
+			outer_elem.wrap('<div>');
+			outer_elem.before('<div>');
+			container = outer_elem.siblings('div');
 			$(this.parent_elem).children('li').each(function() {
 				elem_counter += 1;
-				console.log(elem_counter);
 				this.elem_number = elem_counter;
-				$(this).children().wrapAll('<div>').show();
-				var heading = $(this).children('div').children(':header').clone();
-				$(this).prepend(heading);
-				$(this).children('div').css({'position':'absolute',
+				var heading = $(this).children(':header').clone();
+				heading.contents().wrap('<a href="javascript:">');
+				heading.children('a').data('elem_number', elem_counter);
+				heading.children('a').click(function(){
+					self.setShow($(this).data('elem_number'));
+				});
+				container.append(heading);
+				$(this).css({'position':'absolute',
 					'left':'0',
-					'top':'6em',
+					'top':'0',
+					'border':'1px solid #333333',
 					'z-index':'50'
 				});
 			});
+			container.addClass('cdcTickerControls');
 			this.top_elem = $(this.parent_elem).children('li')[0];
-			$(this.top_elem).children('div').css({'z-index':'52'});
-			$(this.parent_elem).children('li').not(this.top_elem).children('div').hide();
-			$(this.parent_elem).children('li').children(':header').contents().wrap('<a href="javascript:">');
-			$(this.parent_elem).children('li').children(':header').children('a').click(function(){
-				self.setShow($(this).parent().parent()[0].elem_number);
-			})
+			$(this.top_elem).css({'z-index':'52'});
+			$(this.parent_elem).children('li').not(this.top_elem).hide();
 		},
 		setShow: function(number){
 			var new_top = $(this.parent_elem).children('li').filter(function(index){
 				return this.elem_number == number;
 			})[0];
 			var self = this;
-			$(new_top).children('div').css({'z-index':'51'}).show();
-			$(this.top_elem).children('div').fadeOut('fast',function(){
-				$(new_top).children('div').css({'z-index':'52'});
-				$(this).children('div').css({'z-index':'50'}).hide();
-			});
-			this.top_elem = new_top;
-			
+			if (this.top_elem != new_top){
+				$(new_top).css({'z-index':'51'}).fadeIn('medium');
+				$(this.top_elem).fadeOut('medium',function(){
+					$(new_top).css({'z-index':'52'});
+					$(this).css({'z-index':'50'}).hide();
+				});
+				this.top_elem = new_top;
+			}
 		}
 	});
 })(jQuery);
