@@ -58,7 +58,6 @@ SCRATCH PAD
 				$(this).css({'position':'absolute',
 					'left':'0',
 					'top':'0',
-					'border':'1px solid #333333',
 					'z-index':'50'
 				});
 			});
