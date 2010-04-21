@@ -32,7 +32,7 @@ SCRATCH PAD
 	};
 	
 	jQuery.cdcTicker.fn = jQuery.cdcTicker.prototype = {
-		cdcTicker: '0.0.1'
+		cdcTicker: '0.0.2'
 	};
 	
 	jQuery.cdcTicker.fn.extend = jQuery.cdcTicker.extend = jQuery.extend;
@@ -41,17 +41,14 @@ SCRATCH PAD
 			var self = this;
 			var elem_counter = 0;
 			var outer_elem = $(this.parent_elem);
-			outer_elem.wrap('<div>');
-			outer_elem.parent().addClass('cdcTickerWrapper');
-			outer_elem.after('<div>');
-			container = outer_elem.siblings('div');
-			$(this.parent_elem).children('li').each(function() {
+			outer_elem.wrap('<div>').parent().addClass('cdcTickerWrapper');
+			container = $('<div>');
+			outer_elem.children('li').each(function() {
 				elem_counter += 1;
 				this.elem_number = elem_counter;
 				var heading = $(this).children(':header').clone();
 				heading.contents().wrap('<a href="javascript:">');
-				heading.children('a').data('elem_number', elem_counter);
-				heading.children('a').click(function(){
+				heading.children('a').data('elem_number', elem_counter).click(function(){
 					self.setShow($(this).data('elem_number'));
 				});
 				container.append(heading);
@@ -62,6 +59,7 @@ SCRATCH PAD
 				});
 			});
 			container.addClass('cdcTickerControls');
+			outer_elem.after(container);
 			this.top_elem = $(this.parent_elem).children('li')[0];
 			$(this.top_elem).css({'z-index':'52'});
 			$(this.parent_elem).children('li').not(this.top_elem).hide();
@@ -70,7 +68,6 @@ SCRATCH PAD
 			var new_top = $(this.parent_elem).children('li').filter(function(index){
 				return this.elem_number == number;
 			})[0];
-			var self = this;
 			if (this.top_elem != new_top){
 				$(new_top).css({'z-index':'51'}).fadeIn('medium');
 				$(this.top_elem).fadeOut('medium',function(){
