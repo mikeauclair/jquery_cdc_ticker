@@ -27,6 +27,7 @@ SCRATCH PAD
 	
 	jQuery.cdcTicker = function (e, o) {
 		this.options = o || {};
+		this.speed = o['speed'] || null;
 		this.parent_elem = e;
 		this.init();
 	};
@@ -60,9 +61,35 @@ SCRATCH PAD
 			});
 			container.addClass('cdcTickerControls');
 			outer_elem.after(container);
+			this.elem_count = elem_counter;
 			this.top_elem = $(this.parent_elem).children('li')[0];
 			$(this.top_elem).css({'z-index':'52'});
 			$(this.parent_elem).children('li').not(this.top_elem).hide();
+			if (this.speed){
+				this.anim_timer = setTimeout(function(){self.autoAdvance(this.speed);}, self.speed);
+			}
+			container.hover(
+				function(){
+					console.log('fleh');
+					clearTimeout(self.anim_timer);},
+				function(){
+					if(self.speed){
+						clearTimeout(self.anim_timer);
+						self.anim_timer = setTimeout(function(){self.autoAdvance(this.speed);}, self.speed);
+					}
+				}
+			);
+		},
+		autoAdvance: function(speed){
+			var self = this;
+			self.nextElem();
+			self.anim_timer = setTimeout(function(){self.autoAdvance(speed);}, self.speed);
+		},
+		nextElem: function(){
+			console.log((this.top_elem.elem_number) % (this.elem_count) + 1);
+			// console.log(this.top_elem.elem_number);
+			// console.log(this.elem_count);
+			this.setShow((this.top_elem.elem_number) % (this.elem_count) + 1);
 		},
 		setShow: function(number){
 			var new_top = $(this.parent_elem).children('li').filter(function(index){

@@ -11,6 +11,11 @@ div.cdcTickerControls h3, div.cdcTickerControls h4 {
 	height: 33%;
 }
 
+div.cdcTickerWrapper ul li{
+	border:1px solid #333333;
+	background-color: #cccccc;
+}
+
 div.cdcTickerWrapper {
 	height: 400px;
 	width: 50%;
