@@ -7,13 +7,17 @@ div.cdcTickerWrapper ul {
 	width: 550px;
 }
 
-div.cdcTickerControls h3, div.cdcTickerControls h4 {
+div.cdcTickerControls div {
 	height: 33%;
 }
 
 div.cdcTickerWrapper ul li{
 	border:1px solid #333333;
 	background-color: #cccccc;
+}
+
+.selected{
+	background-color: red;
 }
 
 div.cdcTickerWrapper {

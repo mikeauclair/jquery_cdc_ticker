@@ -27,7 +27,7 @@ SCRATCH PAD
 	
 	jQuery.cdcTicker = function (e, o) {
 		this.options = o || {};
-		this.speed = o['speed'] || null;
+		this.speed = this.options['speed'] || null;
 		this.parent_elem = e;
 		this.init();
 	};
@@ -47,11 +47,19 @@ SCRATCH PAD
 			outer_elem.children('li').each(function() {
 				elem_counter += 1;
 				this.elem_number = elem_counter;
-				var heading = $(this).children(':header').clone();
+				var heading = $('<div>');
+				
+				heading.append($(this).children(':header').text());
+				console.log($(this).children(':header').contents());
 				heading.contents().wrap('<a href="javascript:">');
 				heading.children('a').data('elem_number', elem_counter).click(function(){
+					$(this).parent().siblings().removeClass('selected');
+					$(this).parent().addClass('selected');
 					self.setShow($(this).data('elem_number'));
 				});
+				if (elem_counter == 1){
+					heading.addClass('selected');
+				}
 				container.append(heading);
 				$(this).css({'position':'absolute',
 					'left':'0',
