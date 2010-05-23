@@ -74,7 +74,7 @@ SCRATCH PAD
 			if (this.speed){
 				this.anim_timer = setTimeout(function(){self.autoAdvance(this.speed);}, self.speed);
 			}
-			container.hover(
+			outer_elem.parent().hover(
 				function(){
 					//console.log('fleh');
 					clearTimeout(self.anim_timer);},
