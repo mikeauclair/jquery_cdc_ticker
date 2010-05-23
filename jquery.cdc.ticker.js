@@ -48,13 +48,11 @@ SCRATCH PAD
 				elem_counter += 1;
 				this.elem_number = elem_counter;
 				var heading = $('<div>');
-				
+				this.control_box = heading;
 				heading.append($(this).children(':header').text());
-				console.log($(this).children(':header').contents());
+				//console.log($(this).children(':header').contents());
 				heading.contents().wrap('<a href="javascript:">');
 				heading.children('a').data('elem_number', elem_counter).click(function(){
-					$(this).parent().siblings().removeClass('selected');
-					$(this).parent().addClass('selected');
 					self.setShow($(this).data('elem_number'));
 				});
 				if (elem_counter == 1){
@@ -78,7 +76,7 @@ SCRATCH PAD
 			}
 			container.hover(
 				function(){
-					console.log('fleh');
+					//console.log('fleh');
 					clearTimeout(self.anim_timer);},
 				function(){
 					if(self.speed){
@@ -94,7 +92,7 @@ SCRATCH PAD
 			self.anim_timer = setTimeout(function(){self.autoAdvance(speed);}, self.speed);
 		},
 		nextElem: function(){
-			console.log((this.top_elem.elem_number) % (this.elem_count) + 1);
+			//console.log((this.top_elem.elem_number) % (this.elem_count) + 1);
 			// console.log(this.top_elem.elem_number);
 			// console.log(this.elem_count);
 			this.setShow((this.top_elem.elem_number) % (this.elem_count) + 1);
@@ -104,6 +102,8 @@ SCRATCH PAD
 				return this.elem_number == number;
 			})[0];
 			if (this.top_elem != new_top){
+				$(new_top)[0].control_box.siblings().removeClass('selected');
+				$(new_top)[0].control_box.addClass('selected');
 				$(new_top).css({'z-index':'51'}).fadeIn('medium');
 				$(this.top_elem).fadeOut('medium',function(){
 					$(new_top).css({'z-index':'52'});
