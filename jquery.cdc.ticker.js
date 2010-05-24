@@ -51,7 +51,8 @@ SCRATCH PAD
 				this.control_box = heading;
 				heading.append($(this).children(':header').text());
 				//console.log($(this).children(':header').contents());
-				heading.contents().wrap('<a href="javascript:">');
+				heading.contents().wrap('<a>');
+				heading.children('a').attr({'href':'javascript:'});
 				heading.children('a').data('elem_number', elem_counter).click(function(){
 					self.setShow($(this).data('elem_number'));
 				});
