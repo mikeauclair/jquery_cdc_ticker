@@ -33,7 +33,7 @@ SCRATCH PAD
 	};
 	
 	jQuery.cdcTicker.fn = jQuery.cdcTicker.prototype = {
-		cdcTicker: '0.0.2'
+		cdcTicker: '0.0.4'
 	};
 	
 	jQuery.cdcTicker.fn.extend = jQuery.cdcTicker.extend = jQuery.extend;
